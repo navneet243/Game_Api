@@ -32,7 +32,7 @@ const controller = {
         }
     },
 
-    getOperatorName: async (req,res)=> {
+    getOperatorName: async (req,res,next)=> {
         try{
             let operatorname = []
             const operatorQuery = req.query.operator
@@ -51,13 +51,12 @@ const controller = {
             // if operator , operatorGameType are provided or not
             if(operatorQuery && operatorgametypeQuery){
                 if(operatorname.length === 0)
-                    res.status(200).json({"Operator Names":"No operatorName found"})
+                    res.status(404).json({"Operator Names":"No operatorName found"})
                 else
                     res.status(200).json({"Operator Names":operatorname})
             }else 
                 res.status(404).send("Provide valid Operator or OperatorGameType")
             //console.log(req.query);
-
         }catch(err){
             res.status(500).json({msg : err.message})
         }
@@ -89,7 +88,7 @@ const controller = {
             // if operator , operatorGameType and operatorName are provided or not
             if(operatorQuery && operatorgametypeQuery && operatornameQuery){
                 if(playerName.length === 0)
-                    res.status(200).json({"playersName" : "No players found"})
+                    res.status(404).json({"playersName" : "No players found"})
                 else
                     res.status(200).json({"playersName" :playerName})
             }else
@@ -130,7 +129,7 @@ const controller = {
             // if operator , operatorGameType and operatorName are provided or not
             if(operatorQuery && operatorgametypeQuery && operatornameQuery){
                 if(playerName.length===0)
-                    res.status(200).json({"playersName" : "No best player found"})
+                    res.status(404).json({"playersName" : "No best player found"})
                 else
                     res.status(200).json({"playersName" :playerName[index]})
             }else
